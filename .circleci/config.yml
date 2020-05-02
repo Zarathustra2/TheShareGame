@@ -174,7 +174,8 @@ jobs:
       - run:
           name: build frontend
           command: |
-            NODE_OPTIONS=--max_old_space_size=4096 npm run build
+            echo "VUE_APP_CIRLCE_CI=true" > .env
+            make build
 
       - persist_to_workspace:
           root: ~/TheShareGame/frontend
