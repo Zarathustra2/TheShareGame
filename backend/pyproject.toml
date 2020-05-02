@@ -1,0 +1,24 @@
+[tool.black]
+line-length = 120
+target_version = ['py37']
+exclude = '''
+(
+  /(
+      \.eggs         # exclude a few common directories in the
+    | \.git          # root of the project
+    | \.hg
+    | \.mypy_cache
+    | \.tox
+    | \.venv
+    | _build
+    | buck-out
+    | build
+    | dist
+    | venv
+    | migrations/*
+  )/
+  | manage.py
+  | apps.py
+  | settings.py
+)
+'''

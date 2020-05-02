@@ -1,0 +1,22 @@
+coverage:
+  status:
+    backend:
+      flags: backend
+      target: 0%
+      threshold: null
+    frontend:
+      flags: frontend
+      target: 0%
+    backend-chat:
+      target: 0%
+      flags: chat
+flags:
+  backend:  
+    paths:
+      - backend
+  frontend:
+    paths:
+      - frontend
+  backend-chat:
+    paths:
+      - backend/chat

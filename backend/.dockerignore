@@ -1,0 +1,14 @@
+.venv/
+htmlcov/
+docs/
+chat/
+.coverage
+.coveragerc
+celerybeat-schedule
+coverage.xml
+README.md
+.gitignore
+.idea
+mediafiles/company_logo
+__pycache__/
+*.py[cod]

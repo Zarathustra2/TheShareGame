@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Welcome.vue matches Snapshot 1`] = `
+<div>
+  Page could not be found! Are your sure the url is correct?
+</div>
+`;

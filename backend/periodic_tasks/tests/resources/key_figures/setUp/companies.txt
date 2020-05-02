@@ -1,0 +1,7 @@
+# name, shares, isin
+Tom-Company, 1_000_000, US00001
+Marie-Company, 1_000, US00002
+Max-Company, 10_000, US00003
+Gina-Company, 250_000, US00004
+Tony-Company, 500_000, US00005
+Rachel-Company, 200_000, US00006

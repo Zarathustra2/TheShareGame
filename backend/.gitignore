@@ -1,0 +1,7 @@
+celerybeat.pid
+.venv/
+celerybeat-schedule
+htmlcov/
+coverage.xml
+mediafiles
+!mediafiles/logo_default.jpg

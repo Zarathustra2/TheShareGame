@@ -1,0 +1,52 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LinksSheet matches Snapshot 1`] = `
+<div class="card card-body bg-light">
+  <table id="data-table" class="table borderless">
+    <tbody>
+      <tr style="border-top: hidden;">
+        <td><a href="#/company/JP000001/order" class="">
+            Place Order
+          </a></td>
+        <td><a href="#/company/JP000001/orderbook" class="">
+            Orderbook
+          </a></td>
+      </tr>
+      <tr style="border-top: hidden;">
+        <td><a href="#/company/JP000001/statement_of_account" class="">
+            Statement of Account
+          </a></td>
+        <td><a href="#/company/JP000001/trades" class="">
+            Trades
+          </a></td>
+      </tr>
+      <tr style="border-top: hidden;">
+        <td><a href="#/messages?user_id=1" class="">
+            Message Son Goku
+          </a></td>
+        <td><a href="#/company/JP000001/articles" class="">
+            Articles
+          </a></td>
+      </tr>
+      <tr style="border-top: hidden;">
+        <td><a href="#/company/JP000001/depot" class="">
+            Depot - 0
+          </a></td>
+        <td><a href="#/company/JP000001/shareholders" class="">
+            Shareholders - 0
+          </a></td>
+      </tr>
+      <tr style="border-top: hidden;">
+        <td><a href="#/company/JP000001/buyerSeller" class="">
+            Buyer/Seller
+          </a></td>
+        <td>
+          CEO:
+          <a href="#/profile/1" class="">
+            Son Goku
+          </a></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+`;

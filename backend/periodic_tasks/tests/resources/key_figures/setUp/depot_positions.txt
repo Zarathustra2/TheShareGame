@@ -1,0 +1,9 @@
+# company, depot_of, amount
+Tom-Company, Marie-Company, 1_000_000
+Marie-Company, Tom-Company, 250
+Marie-Company, Gina-Company, 750
+Max-Company, Gina-Company, 5_000
+Max-Company, Tony-Company, 5_000
+Gina-Company, Tom-Company, 250_000
+Tony-Company, Tom-Company, 500_000
+Rachel-Company, Tom-Company, 200_000

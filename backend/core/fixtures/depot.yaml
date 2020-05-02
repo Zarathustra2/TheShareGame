@@ -1,0 +1,48 @@
+- model: core.DepotPosition
+  pk: 1
+  fields:
+      depot_of: 4
+      company: 2
+      amount: 500000
+      created: 2020-03-16T17:41:28+00:00
+
+
+- model: core.DepotPosition
+  pk: 2
+  fields:
+      depot_of: 5
+      company: 2
+      amount: 500000
+      created: 2020-03-16T17:41:28+00:00
+
+- model: core.DepotPosition
+  pk: 3
+  fields:
+      depot_of: 2
+      company: 3
+      amount: 1000000
+      created: 2020-03-16T17:41:28+00:00
+
+- model: core.DepotPosition
+  pk: 4
+  fields:
+      depot_of: 2
+      company: 4
+      amount: 1000000
+      created: 2020-03-16T17:41:28+00:00
+
+- model: core.DepotPosition
+  pk: 5
+  fields:
+      depot_of: 2
+      company: 5
+      amount: 1000000
+      created: 2020-03-16T17:41:28+00:00
+
+- model: core.DepotPosition
+  pk: 6
+  fields:
+      depot_of: 2
+      company: 6
+      amount: 1000000
+      created: 2020-03-16T17:41:28+00:00

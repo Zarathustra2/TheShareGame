@@ -1,0 +1,39 @@
+- model: core.Company
+  pk: 2
+  fields:
+      user: 1
+      name: john-company
+      cash: 1000000
+      shares: 1000000
+
+- model: core.Company
+  pk: 3
+  fields:
+      user: 2
+      name: marie-company
+      cash: 10000000
+      shares: 1000000
+
+- model: core.Company
+  pk: 4
+  fields:
+      user: 3
+      name: max-company
+      cash: 1000000
+      shares: 1000000
+
+- model: core.Company
+  pk: 5
+  fields:
+      user: 4
+      name: bart-company
+      cash: 1000000
+      shares: 1000000
+
+- model: core.Company
+  pk: 6
+  fields:
+      user: 5
+      name: lisa-company
+      cash: 1000000
+      shares: 1000000

@@ -1,0 +1,11 @@
+--exclude=.git
+--exclude=backend/.venv
+--exclude=frontend/node_modules
+--exclude=frontend/dist
+--exclude=frontend/cypress
+--exclude=frontend/coverage
+--exclude=backend/htmlcov
+--exclude=frontend/package-lock.json
+--exclude=frontend/package.json
+--exclude=old_frontend
+--exclude=.idea

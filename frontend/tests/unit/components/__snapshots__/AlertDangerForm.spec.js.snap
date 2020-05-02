@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AlertDangerForm matches Snapshot 1`] = `
+<div class="row justify-content-md-center">
+  <div role="alert" aria-live="polite" aria-atomic="true" class="alert alert-danger">
+    <!---->Error 404!
+  </div>
+</div>
+`;
