@@ -177,6 +177,7 @@ export default {
         .catch((e) => {
           console.error(e);
           parseErrorsForm(this, e.response.data);
+          this.$refs.recaptcha.reset();
         });
     },
 
