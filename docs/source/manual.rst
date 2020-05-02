@@ -9,8 +9,8 @@ Book value
 The book value is the sum of the cash and the depot.
 
 Bonds_ in the value will be valued for the price they have been bought.
-Shares_ will be valued with their current share price. 
-Taking this in consideration, one realises the *book value* can be easily manipulated
+Shares_ will be valued with their current share price.
+Taking this in consideration, one realizes the *book value* can be easily manipulated
 by pushing the `share price`_ of a position in the depot.
 
 
@@ -40,11 +40,11 @@ It is the sum of bonds_, cash and the value of each position that can be sold.
 
 For instance, *Company Global* has *1,000,000* in bonds, *500,000* in cash and the following depot position:
 
-- *Company Europe* 2000 shares 
+- *Company Europe* 2000 shares
 
 Now one buy order exists for *Company Europe* with a price of *100$* over *1,000* shares.
 
-So the position gets valued as *100$ * 1,000 = 100,000*, as that is the value that *Company Global* can get immediately 
+So the position gets valued as *100$ * 1,000 = 100,000*, as that is the value that *Company Global* can get immediately
 by selling. So the total TTOC for *Company Global* is: *1,000,000$ + 500,000$ + 100,000$ = 1,600,000$*.
 
 The TTOC can never be higher than the `book value`_.
@@ -77,14 +77,14 @@ Shares
 """"""
 The heart of the game. If a company buys shares of another company it will become a shareholder of the company.
 
-One can only buy shares of a company if another company is selling shares. 
+One can only buy shares of a company if another company is selling shares.
 
 To determine the price of a share, one must interpret the company for them self and take multiple factors in consideration.
 
-For instance there are several key figures such as the *book value*, *ttoc*, *activity* which can be helpful for 
+For instance there are several key figures such as the *book value*, *ttoc*, *activity* which can be helpful for
 making a decision whether the share is overpriced or not.
 
-**But numbers are not everything**. A stock market is always a psychological game. Companies which are active in the chat_, forum_ 
+**But numbers are not everything**. A stock market is always a psychological game. Companies which are active in the chat_, forum_
 or newspaper_ have a value which is not represented by any key figure.
 
 Your goal is to find out how other players value companies, how they interpret numbers to determine the price of a share.
@@ -115,5 +115,3 @@ Newspaper
 """""""""
 In the newspaper companies can publish articles about everything. It is a good starting to point to
 introduce one. Companies can also write something about their strategies or plans for the future.
-
-

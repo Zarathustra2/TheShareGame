@@ -1,8 +1,8 @@
 ## Contributing
 
 #### Thanks
-First of all, thank you for wanting to contribute. If you have any questions or problems, please 
-get in touch with me and I will do my best to help you. I appreciate any support I am getting. 
+First of all, thank you for wanting to contribute. If you have any questions or problems, please
+get in touch with me and I will do my best to help you. I appreciate any support I am getting.
 
 
 #### Official docs
@@ -31,39 +31,38 @@ To install everything run:
 > make deps
 ```
 
-This script installs all the necessary dependencies 
+This script installs all the necessary dependencies
 
 - such as packages for the python backend
 - go modules for the chat
 - npm packages for the frontend.
 
-Furthermore, it creates a python virtual environment. 
+Furthermore, it creates a python virtual environment.
 
 
 ##### Backend
 ```bash
 > cd backend/
 > make runserver
-``` 
+```
 
 
 ##### Backend Chat
 ```bash
 > cd backend/chat
 > make runserver
-``` 
+```
 
 
 ##### Frontend
 ```bash
 > make runserver
-``` 
+```
 
 Now you should be able to access the web interface on http://localhost:8080
 
-Most features should work now. Features which require a separate worker such as periodic tasks - key figures
-calculation, bond payout, order matching etc. - would require to also start celery. 
- 
+Most features should work now. Features which require a separate worker such as periodic tasks - key figures' calculation, bond payout, order matching etc. - would require to also start celery so the backend processes can run.
+
 
 ##### Celery Worker
 ```bash
@@ -76,17 +75,17 @@ calculation, bond payout, order matching etc. - would require to also start cele
 ```bash
 > cd backend/
 > make celery-beat
-``` 
+```
 
 
 #### Testing
 
-If you have finished your implementation you cna run all tests by executing the follwing command from the root of the project
+If you have finished your implementation you can run all tests by executing the following command from the root of the project
 ```bash
 > make test
 ```
 
-The tests consists of unit & linting tests for the backend and frontend.
+The tests suite consists of unit testing & linting tests for the backend and frontend.
 
 
 #### Format all files
@@ -103,10 +102,10 @@ If you just want to format the django backend, run:
 
 
 #### Docker
-If you want to test the deployment just run from the root of th project:
+If you want to test the deployment just run from the root of the project:
 ```bash
 > make build && make up
-``` 
+```
 
 This runs docker-compose and builds the related containers.
 
