@@ -18,20 +18,19 @@
 ## Overview
 TheShareGame is a stock market game simulation where the players make the market. Sign up [here](https://www.thesharegame.com/).
 
-The game is developed open source players are welcome to fork this repo and make contribution to the game and add their own wants.
+The game is developed by open source players who are welcome to fork this repo and make a contribution to the game and add their own wants and needs.
 
 The game itself aims at multiple different groups:
 1. Normal people, who just wanna escape the world and play a stock market simulation
-2. Data Scientist who can connect to the api and make predictions about how the market evolves
-3. Djangonauts who want to learn how to code in django or wanna show me how to code better in Django ;)
-4. Vuenauts who want to show me how to properly write code in vue.
+2. Data Scientists who can connect to the api and make predictions about how the market evolves
+3. Djangonauts who want to learn how to code in Django or wanna show me how to code better in Django ;)
+4. Vuenauts who want to show me how to properly write code in Vue.
 
 ## Game
-Every player starts with his own company. He can invest in other players' companies, buy bonds and more. 
-The game itself is not connected to the reality, the players make and controll the market with their actions.
+Every player starts with his own company. He can invest in other players' companies, buy bonds and more.
+The game itself is not connected to the reality, the players make and control the market with their actions.
 
-Players can overtake other players, group up with friends in an investment fond and write about their strategies
-in the newspaper. 
+Players can overtake other players, group up with friends in an investment fund and write about their strategies in the newspaper.
 
 In the forum they can discuss which features should be added next to the game!
 

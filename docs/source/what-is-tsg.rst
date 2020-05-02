@@ -40,5 +40,4 @@ In the end it only matters that you have fun and enjoy being part of the communi
 Is it free to play?
 -------------------
 Yes, and it will continue to be free. If I cannot to manage pay the server costs from my own costs, I will create
-an patreon account or enable Github sponsoring.
-
+an Patreon account or enable Github sponsoring.
