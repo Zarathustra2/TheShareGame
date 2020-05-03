@@ -79,42 +79,56 @@
             </td>
           </tr>
           <tr style="border: 5px;">
-            <td><b>BV/S <a href="" id="bv-s-tooltip">?</a></b><br>
+            <td><b>BV/S <a href="#" onclick="return false;" id="bv-s-tooltip">?</a></b><br>
               <span id="bv-s">
                 {{ this.bookvalue_share }}
               </span>
             </td>
-            <td><b>BV <a href="" id="bv-tooltip">?</a></b><br>
+            <td><b>BV <a href="#" onclick="return false;" id="bv-tooltip">?</a></b><br>
               <span id="bv">
                 {{ this.bookvalue }}
               </span>
             </td>
             <td>
-              <b>Activity <a href="" id="activity-tooltip">?</a></b><br>
+              <b>Activity
+                <a href="#" onclick="return false;" id="activity-tooltip">?</a>
+              </b><br>
               <span id="activity">{{this.key_figures.activity}}%</span>
             </td>
           </tr>
           <tr style="border-top: hidden;">
             <td>
-              <b class="text-info">TC/S <a href="" id="tc-tooltip">?</a></b><br>
+              <b class="text-info">TC/S
+                <a href="#" onclick="return false;" id="tc-tooltip">?</a>
+              </b><br>
               <span id="tc_share">{{ this.ttoc_share }}</span>
             </td>
-            <td><b class="text-info">CDGR <a href="" id="cdgr-tooltip">?</a></b><br>
+            <td>
+              <b class="text-info">CDGR
+                <a href="#" onclick="return false;" id="cdgr-tooltip">?</a>
+              </b><br>
               <span id="cdgr">{{ this.key_figures.cdgr }}%</span>
             </td>
-            <td><b class="text-info">MC <a href="" id="mc-tooltip">?</a></b>
+            <td>
+              <b class="text-info">MC
+                <a href="#" onclick="return false;" id="mc-tooltip">?</a></b>
               <br>
               <span id="market_cap">{{ this.market_cap }}</span>
             </td>
           </tr>
           <tr style="border-top: hidden;">
-            <td><b class="text-warning">Free-Float <a href="" id="ff-tooltip">?</a></b><br>
+            <td>
+              <b class="text-warning">Free-Float
+                <a href="#" onclick="return false;" id="ff-tooltip">?</a>
+              </b><br>
               <span id="free_float">{{ this.key_figures.free_float }}%</span>
             </td>
             <td>
             </td>
             <td>
-              <b class="text-warning">Shares <a href="" id="shares-tooltip">?</a></b><br>
+              <b class="text-warning">Shares
+                <a onclick="return false;" href="#" id="shares-tooltip">?</a>
+              </b><br>
               <span id="quant_shares">{{ this.a_shares }}</span>
             </td>
           </tr>

@@ -10,31 +10,34 @@
         <b-col>
           <div class="text-center">
 
-            <center>
-              <h1 id="company_name">
-                {{company.name}}
-              </h1>
+            <b-col>
+              <center>
+                <h1 id="company_name">
+                  {{company.name}}
+                </h1>
 
-              <h3 class="lead" style="letter-spacing: 3px; margin-top: 1px">
-            <span style="font-size: 75%">
-                <p class="lead initialism">
-                  <i class="language flag-icon flag-icon-ge"/>
-                    <span id="isin">ISIN: {{company.isin}}</span>
-                    <span v-if="company.user !== null" id="ceo_username">
-                      <br>Ceo: {{company.user.username}}
-                    </span>
-                </p>
-            </span>
-              </h3>
+                <h3 class="lead" style="letter-spacing: 3px; margin-top: 1px">
+              <span style="font-size: 75%">
+                  <p class="lead initialism">
+                    <i class="language flag-icon flag-icon-ge"/>
+                      <span id="isin">ISIN: {{company.isin}}</span>
+                      <span v-if="company.user !== null" id="ceo_username">
+                        <br>Ceo: {{company.user.username}}
+                      </span>
+                  </p>
+              </span>
+                </h3>
 
-              <img
-                v-if="logo === null"
-                src="@/assets/centralbank.jpg"
-                class="img-responsive"
-                alt=""
-              >
-              <img v-else :src="logo" class="img-responsive" alt="">
-            </center>
+                <img
+                  v-if="logo === null"
+                  src="@/assets/centralbank.jpg"
+                  class="img-responsive"
+                  alt=""
+
+                >
+                <img v-else :src="logo" class="img-fluid" alt="" >
+              </center>
+            </b-col>
             <b-row id="company-info">
               <b-col>
                 <Datasheet

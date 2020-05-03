@@ -22,7 +22,8 @@
     <h3>I. Information about us as controllers of your data</h3>
     <p>The party responsible for this website (the "controller") for purposes of data protection law
       is:</p>
-    <p><span class="text-primary">Dario Heinisch</span><br><span
+    <p>
+      <span class="text-primary">Dario Heinisch</span><br><span
       class="text-primary">Tauroggener Str. 16</span><br><span
       class="text-primary">10589 Berlin</span><br>
       <span class="text-primary">Germany</span>

@@ -1,4 +1,6 @@
 --exclude=.git
+--exclude=docs/build
+--exclude=docs/.venv
 --exclude=backend/.venv
 --exclude=frontend/node_modules
 --exclude=frontend/dist

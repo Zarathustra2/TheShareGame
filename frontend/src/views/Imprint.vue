@@ -10,10 +10,10 @@
       regulations. If you wish to get in contact with Dario Heinisch please write to:
     </p>
     <p>
-      Dario Heinisch<br>
-      Am Weinberg 13<br>
-      23858 Reinfeld(Holstein)<br>
-      Germany<br>
+      <span class="text-primary">Dario Heinisch</span><br><span
+      class="text-primary">Tauroggener Str. 16</span><br><span
+      class="text-primary">10589 Berlin</span><br>
+      <span class="text-primary">Germany</span>
     </p>
     <p>
       Responsible for contents in accordance with § 6 of the German Teleservices Act (TDG): Dario
