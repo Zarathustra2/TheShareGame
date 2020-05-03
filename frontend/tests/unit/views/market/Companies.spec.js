@@ -13,6 +13,7 @@ const mockItems = [
   { isin: 'US000001', name: 'Vue Inc.', user: { username: 'Joe Blocks' } },
   { isin: 'US000002', name: 'Share Inc.', user: { username: 'Joe Blocks' } },
   { isin: 'US000003', name: 'Game Inc.', user: { username: 'Joe Blocks' } },
+  { isin: 'US000004', name: 'Centralbank', user: null },
 ];
 
 jest.spyOn(Table, 'getTableData').mockImplementation(getTableDataMock(mockItems));
@@ -26,7 +27,7 @@ describe('Companies', () => {
 
     await wrapper.vm.$nextTick();
 
-    expect(wrapper.findAll('tbody > tr').length).toBe(3);
+    expect(wrapper.findAll('tbody > tr').length).toBe(mockItems.length);
 
     const $trs = wrapper.findAll('tbody > tr').wrappers;
 
@@ -35,7 +36,8 @@ describe('Companies', () => {
       const item = mockItems[i];
       expect(tr.find('.name').text()).toMatch(item.name);
       expect(tr.find('.isin').text()).toMatch(item.isin);
-      expect(tr.find('.ceo').text()).toMatch(item.user.username);
+
+      if (item.user !== null) expect(tr.find('.ceo').text()).toMatch(item.user.username);
     }
   });
 });

@@ -5,14 +5,22 @@
       All companies that are currently active and registered.
     </p>
     <list :getData="getCompanies" :slots="templates" :childFields="fields" id="companies">
+
       <template slot="name" slot-scope="data">
         <router-link :to="{name: 'company', params: {isin: data.tbl.item.isin}}">
           {{data.tbl.value}}
         </router-link>
       </template>
 
-    </list>
+      <template slot="user" slot-scope="data">
+        <router-link
+          v-if="data.tbl.item.user !== null"
+          :to="{name: 'profile', params: {id: data.tbl.item.user.id}}">
+          {{data.tbl.value.username}}
+        </router-link>
+      </template>
 
+    </list>
 
   </div>
 </template>
@@ -31,6 +39,7 @@ export default {
     return {
       templates: [
         { name: 'name', field: 'name' },
+        { name: 'user', field: 'user' },
       ],
       fields: [
         {
@@ -40,7 +49,7 @@ export default {
           key: 'name', label: 'Name', sortable: true, sortDirection: 'desc', class: 'name',
         },
         {
-          key: 'user.username', label: 'Ceo', sortable: true, sortDirection: 'desc', class: 'ceo',
+          key: 'user', label: 'Ceo', sortable: true, sortDirection: 'desc', class: 'ceo',
         },
       ],
     };
