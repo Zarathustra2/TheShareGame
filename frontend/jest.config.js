@@ -36,5 +36,5 @@ module.exports = {
     '!src/routes.js',
     '!src/service/api.js',
   ],
-  coverageReporters: ['lcov', 'text-summary'],
+  coverageReporters: ['lcov', 'text'],
 };

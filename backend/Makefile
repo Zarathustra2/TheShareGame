@@ -18,7 +18,7 @@ makemigrations: ## Create new migrations based on the changes to the models
 test: ## Run all tests
 	@$(VENV) -m pytest .
 
-test-cov: ## Run all tests and create coverage
+cov: ## Run all tests and create coverage
 	@$(VENV) -m pytest --cov .
 	@$(VENV) -m coverage xml
 	@$(VENV) -m coverage html

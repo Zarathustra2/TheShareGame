@@ -41,7 +41,7 @@ jobs:
       - run:
           name: run tests
           command: |
-            make test-cov
+            make cov
             bash <(curl https://codecov.io/bash) -t ${CODECOV_TOKEN} -f coverage.xml -F backend
 
       - persist_to_workspace:
@@ -124,7 +124,7 @@ jobs:
       - run:
           name: run tests
           command: |
-            make test-cov
+            make cov
             bash <(curl https://codecov.io/bash) -t ${CODECOV_TOKEN} -f coverage.txt -F chat
 
       - run:

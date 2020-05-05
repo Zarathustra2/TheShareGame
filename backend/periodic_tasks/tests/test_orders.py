@@ -17,7 +17,7 @@ from core.models import StatementOfAccount, Company, DepotPosition, Order, Trade
 from periodic_tasks.orders import OrderTask, check_orders_single_company
 from periodic_tasks.tests.tests import TestReadFile
 from tsg.settings import BASE_DIR
-from users.models import User
+from users.models import User, Notification
 
 
 @override_settings(task_eager_propagates=True, task_always_eager=True, broker_url="memory://", backend="memory")
@@ -141,6 +141,21 @@ class OrderTaskTest(TestCase):
         self.check_cash_order_fully_matched(buy_order)
 
         self.check_market()
+
+    def test_notifications_have_been_created(self):
+        sell_order = Order.objects.create(order_by_id=4, order_of_id=2, price=2, amount=100, typ=Order.type_sell())
+        buy_order = Order.objects.create(order_by_id=3, order_of_id=2, price=2, amount=100, typ=Order.type_buy())
+
+        Notification.objects.all().delete()
+        OrderTask().run()
+
+        self.assertEqual(2, Notification.objects.count())
+
+        buy_notification = Notification.objects.get(user=buy_order.order_by.user)
+        self.assertTrue("buy" in buy_notification.subject.lower())
+
+        sell_notification = Notification.objects.get(user=sell_order.order_by.user)
+        self.assertTrue("sell" in sell_notification.subject.lower())
 
     def b_test_multiple_buy_orders(self):
 

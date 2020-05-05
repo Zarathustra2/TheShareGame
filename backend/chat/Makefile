@@ -12,7 +12,7 @@ runserver: ## Run the dev server
 test: ## Run all tests
 	@go test -v ./...
 
-test-cov: ## Run all tests and create coverage
+cov: ## Run all tests and create coverage
 	@go test -race -coverprofile=coverage.txt -covermode=atomic
 
 build: ## Build the chat

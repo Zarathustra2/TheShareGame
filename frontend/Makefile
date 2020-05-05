@@ -16,6 +16,9 @@ build: ## Build the frontend
 	@npm run build
 
 test: ## Run all unit tests
+	@npm run test:unit -- --collectCoverage=false
+
+cov: ## Run all unit tests with coverage
 	@npm run test:unit
 
 runserver: ## Run the dev server

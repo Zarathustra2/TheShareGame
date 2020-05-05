@@ -188,10 +188,10 @@ class OrderTask(CeleryTask):
         self.update_depot(buy, sell, price, amount)
 
         if buy["order_by__user_id"]:
-            self.create_notification(buy["order_by__user_id"], amount, price, buy["order_of__name"], received=True)
+            self.create_notification(buy["order_by__user_id"], amount, price, buy["order_of__name"], received=False)
 
         if sell["order_by__user_id"]:
-            self.create_notification(sell["order_by__user_id"], amount, price, buy["order_of__name"], received=False)
+            self.create_notification(sell["order_by__user_id"], amount, price, buy["order_of__name"], received=True)
 
         return buy_counter, sell_counter
 
