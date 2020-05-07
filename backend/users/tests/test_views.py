@@ -879,3 +879,21 @@ class ProfileApiTestCase(BaseTestCase):
         data = {"user_id": 2}
         rsp = self.client.put(self.url, data, format="json")
         self.assertEqual(400, rsp.status_code)
+
+    def test_user_without_company(self):
+        self.user.company.delete()
+
+        rsp = self.client.get(self.url)
+        rsp_json = rsp.json()
+
+        should_be = {
+            "user": {"id": self.user.id, "username": self.user.username},
+            "description": "This user prefers to keep an air of mystery about them.",
+            "age": 42,
+            "company": {},
+            "is_own_profile": False,
+        }
+
+        del rsp_json["company_logo"]
+
+        self.assertEqual(rsp_json, should_be)

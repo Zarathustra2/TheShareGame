@@ -460,6 +460,11 @@ class ProfileSerializer(serializers.ModelSerializer):
         if profile_user is not None:
             from core.serializers import CompanyUrlSerializer
 
-            data["company"] = CompanyUrlSerializer(instance=instance.user.company).data
+            company = dict()
+            user = instance.user
+
+            if hasattr(user, "company"):
+                company = CompanyUrlSerializer(instance=instance.user.company).data
+            data["company"] = company
 
         return data
