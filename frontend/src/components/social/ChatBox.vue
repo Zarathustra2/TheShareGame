@@ -14,7 +14,12 @@
 
     </div>
     <b-form v-on:submit="send">
-      <b-form-group>
+      <b-input-group>
+
+        <b-input-group-prepend>
+          <b-button variant="primary" v-on:click="send" class="msg-btn">Send</b-button>
+        </b-input-group-prepend>
+
         <b-form-input
           id="chat-msg"
           v-model="form.msg"
@@ -27,9 +32,7 @@
           Message must be shorter than 100 chars
         </b-form-invalid-feedback>
 
-      </b-form-group>
-
-      <b-button variant="primary" v-on:click="send" class="msg-btn">Save</b-button>
+      </b-input-group>
     </b-form>
 
   </div>
@@ -39,13 +42,17 @@
 <script>
 import Service from '@/service/service';
 import {
-  BButton, BForm, BFormInvalidFeedback, BFormGroup, BFormInput,
+  BButton, BForm, BFormInvalidFeedback, BFormInput, BInputGroup,
 } from 'bootstrap-vue';
 
 export default {
   name: 'ChatBox',
   components: {
-    BButton, BForm, BFormInvalidFeedback, BFormGroup, BFormInput,
+    BButton,
+    BForm,
+    BFormInvalidFeedback,
+    BFormInput,
+    BInputGroup,
   },
   props: ['amount'],
   data() {
@@ -61,7 +68,13 @@ export default {
     send(evt) {
       evt.preventDefault();
       if (!this.authenticated) {
-        console.log('User is not authenticated!');
+        this.$bvToast.toast('Cannot send chat msg without logging in to your account!', {
+          title: 'Error!',
+          autoHideDelay: 5000,
+          appendToast: false,
+          variant: 'danger',
+        });
+
         return;
       }
 
