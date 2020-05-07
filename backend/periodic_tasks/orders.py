@@ -84,13 +84,26 @@ class OrderTask(CeleryTask):
         # list of notifications for users that their order has been fulfilled.
         self.notifications = list()
 
+        # dict of depot positions which should be updated. Each depot position in this
+        # dict already has an entry in the database.
         self.depot_positions_update = dict()
 
+        # dict of new depot positions which shall be created.
         self.depot_positions_create = dict()
 
         self.order_update = dict()
 
-    def _update_single_depot_position(self, key: Tuple[int, int], amount: int) -> None:
+    def _update_single_depot_position(self, key: Tuple[int, int], amount: int, price: int) -> None:
+        """
+        Updates the depot position for a a given depot.
+
+        The tuple contains the depot_of_id & company_id. If a DepotPosition already exists
+        update the amount of shares otherwise create a new one.
+
+        Currently we check with a single exists query whether the poistion exists. This might
+        be expensive, so maybe just query all existing tuples before hand, save them and check
+        if the tuple exists.
+        """
 
         # TODO: Find a better way
         if key in self.depot_positions_update:
@@ -99,15 +112,16 @@ class OrderTask(CeleryTask):
 
         if not DepotPosition.objects.filter(depot_of_id=key[0], company_id=key[1]).exists():
             if key not in self.depot_positions_create:
-                self.depot_positions_create[key] = amount
+                self.depot_positions_create[key] = (amount, price)
             else:
-                self.depot_positions_create[key] += amount
+                old_amount, price = self.depot_positions_create[key]
+                self.depot_positions_create[key] = (old_amount + amount, price)
         else:
             self.depot_positions_update[key] = amount
 
     def run(self):
         with LockedAtomicTransactionCompanyDepotPosition():
-            # ToDo: Is there a way to filter only those companies
+            # TODO: Is there a way to filter only those companies
             # where the ask is <= than the bid
             companies = Company.objects.exclude(name=CENTRALBANK)
 
@@ -118,7 +132,7 @@ class OrderTask(CeleryTask):
 
             # check that not more shares have been accidentally generated
             for c in companies:
-                # ToDo: Might be expensive. => Benchmark
+                # TODO: Might be expensive. => Benchmark
                 total_shares = Company.objects.only("shares").get(id=c.id).shares
                 depot_total_shares = (
                     DepotPosition.objects.only("amount").filter(company=c.id).aggregate(s=Sum("amount")).get("s")
@@ -210,11 +224,11 @@ class OrderTask(CeleryTask):
         key = (sell["order_by"], buy["order_of"])
 
         # pass negative amount so the value gets subtracted from the depot position
-        self._update_single_depot_position(key, -amount)
+        self._update_single_depot_position(key, -amount, price)
 
         # update buy site depot
         key = (buy["order_by"], buy["order_of"])
-        self._update_single_depot_position(key, amount)
+        self._update_single_depot_position(key, amount, price)
 
         # create new trade object
         trade = Trade(
@@ -228,7 +242,7 @@ class OrderTask(CeleryTask):
         self._new_statement(buy["order_by"], amount, value, received=False)
 
     def bulk_update(self, batch=False):
-        # ToDo: Benchmarktest, I do not know if that approach scales
+        # TODO: Benchmarktest, I do not know if that approach scales
         # maybe work with batch size, if 500 values in a dict, insert it and clear it
 
         # Either clear & insert the lists if we check for batch size
@@ -241,8 +255,8 @@ class OrderTask(CeleryTask):
         if not batch or len(self.depot_positions_create) > self.BATCH:
             l = list()
             for key in self.depot_positions_create:
-                v = self.depot_positions_create[key]
-                l.append(DepotPosition(depot_of_id=key[0], company_id=key[1], amount=v))
+                amount, price = self.depot_positions_create[key]
+                l.append(DepotPosition(depot_of_id=key[0], company_id=key[1], amount=amount, price_bought=price))
 
             DepotPosition.objects.bulk_create(l)
             self.depot_positions_create = dict()

@@ -1,4 +1,3 @@
-
 import { createLocalVue, mount } from '@vue/test-utils';
 import VueRouter from 'vue-router';
 import BuyerSeller from '@/views/company/BuyerSeller.vue';
@@ -58,6 +57,15 @@ const mockItems = [
   },
 ];
 
+const mocks = {
+  $http: {
+    get() {
+      return Promise.resolve({ data: { name: 'Company Name' } });
+    },
+  },
+};
+
+
 jest.spyOn(Table, 'getTableData').mockImplementation(getTableDataMock(mockItems));
 jest.spyOn(Table, 'getTableNameAndCompanyName').mockImplementation(jest.fn(() => {}));
 
@@ -67,13 +75,7 @@ describe('BuyerSeller', () => {
     wrapper = mount(BuyerSeller, {
       localVue,
       router,
-      mocks: {
-        $http: {
-          get() {
-            return Promise.resolve({ data: { name: 'Company Name' } });
-          },
-        },
-      },
+      mocks,
     });
   });
 
@@ -83,5 +85,18 @@ describe('BuyerSeller', () => {
 
   it('fetches the company name if not provided', () => {
     expect(wrapper.vm.name).toEqual('Company Name');
+  });
+
+  it('does not fetch company name if provided', () => {
+    wrapper = mount(BuyerSeller, {
+      localVue,
+      router,
+      mocks,
+      propsData: {
+        companyName: 'Bar',
+      },
+    });
+
+    expect(wrapper.vm.name).toEqual('Bar');
   });
 });

@@ -157,6 +157,15 @@ class OrderTaskTest(TestCase):
         sell_notification = Notification.objects.get(user=sell_order.order_by.user)
         self.assertTrue("sell" in sell_notification.subject.lower())
 
+    def test_price_bought_gets_set_on_depot_position(self):
+        sell_order = Order.objects.create(order_by_id=4, order_of_id=2, price=2, amount=100, typ=Order.type_sell())
+        buy_order = Order.objects.create(order_by_id=3, order_of_id=2, price=2, amount=100, typ=Order.type_buy())
+
+        OrderTask().run()
+
+        obj = DepotPosition.objects.get(depot_of=buy_order.order_by, company=buy_order.order_of)
+        self.assertEqual(buy_order.price, obj.price_bought)
+
     def b_test_multiple_buy_orders(self):
 
         amount = 10000
