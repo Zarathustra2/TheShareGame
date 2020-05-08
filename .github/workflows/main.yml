@@ -172,6 +172,7 @@ jobs:
         run: | 
           ls .
           ls docs-builds/
+          mkdir ./docs/build
           mv docs-builds/* ./docs/build
           mv dist/* ./frontend/dist
           
