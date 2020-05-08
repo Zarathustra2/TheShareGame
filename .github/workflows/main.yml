@@ -151,9 +151,10 @@ jobs:
         bash <(curl https://codecov.io/bash) -f coverage.xml -F backend
         
 
-  docker-builds:
-    needs: [websockets, docs, frontend, backend]
+  docker:
     runs-on: ubuntu-latest
+    needs: [websockets, docs, frontend, backend]
+    if: github.ref == 'refs/heads/master'
 
     steps:
       - uses: actions/checkout@v2
@@ -170,17 +171,10 @@ jobs:
     
       - name: Check data has been passed from previous step
         run: | 
-          ls .
-          ls docs-builds/
           mkdir ./docs/build
           mkdir ./frontend/dist
           mv docs-builds/* ./docs/build
           mv dist/* ./frontend/dist
-          
-      - name: ls after mv
-        run: |
-          ls ./docs/build
-          ls ./frontend/dist
       
       - name: Build containers
         run: |
