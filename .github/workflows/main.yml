@@ -59,6 +59,13 @@ jobs:
     - name: Create html docs
       run: make html
 
+    - name: Upload docs folder
+      uses: actions/upload-artifact@v1
+      with:
+        name: docs
+        path: ./
+
+
   frontend:
     runs-on: ubuntu-latest
     defaults:
@@ -84,6 +91,12 @@ jobs:
     
     - name: Build
       run: make build
+
+    - name: Upload dist folder
+      uses: actions/upload-artifact@v1
+      with:
+        name: dist
+        path: dist/
 
   backend:
     runs-on: ubuntu-latest
@@ -137,5 +150,23 @@ jobs:
         make cov
         bash <(curl https://codecov.io/bash) -f coverage.xml -F backend
         
+
+  docker:
+    needs: [websockets, docs, frontend, backend]
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Download frontend dist
+        uses: actions/download-artifact@v1
+        with:
+          name: dist
+
+        run: | 
+          ls .
+          ls dist/
+          mv dist TheShareGame/frontend/dist
+
+
 
 
