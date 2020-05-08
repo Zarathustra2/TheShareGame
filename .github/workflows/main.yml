@@ -1,0 +1,131 @@
+name: Main
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+
+jobs:
+
+  websockets:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend/chat
+    steps:
+
+    - name: Set up Go 1.x
+      uses: actions/setup-go@v2
+      with:
+        go-version: ^1.13
+      id: go
+
+    - name: Check out code into the Go module directory
+      uses: actions/checkout@v2
+
+    - name: Get dependencies
+      run: make deps
+    
+    
+    - name: Lint
+      run: make lint
+
+    - name: Test
+      run: |
+        make cov
+        bash <(curl https://codecov.io/bash) -f coverage.txt -F chat
+  
+    - name: Build
+      run: make build
+
+  docs:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: docs
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python 3.8
+      uses: actions/setup-python@v1
+      with:
+        python-version: 3.8
+
+    - name: Install dependencies
+      run: make deps
+
+    - name: Create html docs
+      run: make html
+
+  frontend:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
+        
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js
+      uses: actions/setup-node@v1
+      with:
+        node-version: '12.x'
+    - name: Install Dependencies
+      run: npm ci
+    
+    - name: Lint
+      run: make lint
+    
+    - name: Test
+      run: |
+        make cov
+        bash <(curl https://codecov.io/bash) -f ./coverage/lcov.info -F frontend
+    
+    - name: Build
+      run: make build
+
+  backend:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: backend
+
+    services:
+      postgres:
+        image: postgres:10.8
+        env:
+          POSTGRES_USER: tsg_user
+          POSTGRES_DB: tsg_db
+        ports:
+          - 5432:5432
+        # needed because the postgres container does not provide a healthcheck
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python 3.8
+      uses: actions/setup-python@v1
+      with:
+        python-version: 3.8
+    
+    - name: psycopg2 prerequisites
+      run: sudo apt-get install python-dev libpq-dev
+    
+    - name: Install dependencies
+      run: make deps
+    
+    - name: Lint
+      run: make lint
+    
+    - name: Django checking
+      run: make check
+    
+    - name: Test
+      run: |
+        make cov
+        bash <(curl https://codecov.io/bash) -f coverage.xml -F backend
+        
+
+
