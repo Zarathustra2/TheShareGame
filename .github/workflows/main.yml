@@ -171,8 +171,8 @@ jobs:
       - name: Check data has been passed from previous step
         run: | 
           ls .
+          ls docs/
           mv dist ./frontend/dist
-          mv docs ./docs
       
       - name: Build containers
         run: |
