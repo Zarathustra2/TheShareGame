@@ -43,7 +43,6 @@ class KeyFiguresTask(CeleryTask):
                 Company.objects.select_related("keyfigures")
                 .prefetch_related("depotposition_set", "bond_set", "orders_of")
                 .all()
-                .exclude(name=CENTRALBANK)
                 .iterator()
             ):
 
