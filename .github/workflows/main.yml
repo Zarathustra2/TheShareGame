@@ -63,7 +63,7 @@ jobs:
       uses: actions/upload-artifact@v1
       with:
         name: docs
-        path: docs
+        path: docs/build
 
 
   frontend:
@@ -161,6 +161,12 @@ jobs:
         uses: actions/download-artifact@v1
         with:
           name: dist
+          
+      - name: Download docs
+        uses: actions/download-artifact@v1
+        with:
+          name: docs
+    
       - name: Check data has been passed from previous step
         run: | 
           ls .
