@@ -156,6 +156,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - uses: actions/checkout@v2
 
       - name: Download frontend dist
         uses: actions/download-artifact@v1
@@ -170,8 +171,13 @@ jobs:
       - name: Check data has been passed from previous step
         run: | 
           ls .
-          ls dist/
           mv dist TheShareGame/frontend/dist
+          mv docs TheShareGame/docs
+      
+      - name: Build containers
+        run: |
+          cp default.env .env
+          docker-compose build
 
 
 
