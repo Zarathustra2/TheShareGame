@@ -2,6 +2,7 @@ from datetime import timedelta
 from decimal import Decimal
 
 from django.db import IntegrityError
+from freezegun import freeze_time
 
 from common.test_base import NOW, BaseTestCase
 from core.models import Bond, Company, DepotPosition, Trade, StatementOfAccount
@@ -180,6 +181,7 @@ class OrderTestCase(BaseTestCase):
         self.assertFalse(Order.objects.filter(id=self.order.id).exists())
 
 
+@freeze_time(NOW)
 class BondTest(BaseTestCase):
     def setUp(self):
         super().setUp()
