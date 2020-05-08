@@ -171,14 +171,10 @@ jobs:
       - name: Check data has been passed from previous step
         run: | 
           ls .
-          mv dist TheShareGame/frontend/dist
-          mv docs TheShareGame/docs
+          mv dist ./frontend/dist
+          mv docs ./docs
       
       - name: Build containers
         run: |
           cp default.env .env
           docker-compose build
-
-
-
-
