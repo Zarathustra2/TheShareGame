@@ -62,7 +62,7 @@ jobs:
     - name: Upload docs folder
       uses: actions/upload-artifact@v1
       with:
-        name: docs
+        name: docs-builds
         path: docs/build
 
 
@@ -166,13 +166,19 @@ jobs:
       - name: Download docs
         uses: actions/download-artifact@v1
         with:
-          name: docs
+          name: docs-builds
     
       - name: Check data has been passed from previous step
         run: | 
           ls .
-          ls docs/
-          mv dist ./frontend/dist
+          ls docs-builds/
+          mv docs-builds/* ./docs/build
+          mv dist/* ./frontend/dist
+          
+      - name: ls after mv
+        run: |
+          ls .docs/build
+          ls .frontend/dist
       
       - name: Build containers
         run: |
