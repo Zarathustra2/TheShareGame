@@ -161,7 +161,7 @@ jobs:
         uses: actions/download-artifact@v1
         with:
           name: dist
-
+      - name: Check data has been passed from previous step
         run: | 
           ls .
           ls dist/
