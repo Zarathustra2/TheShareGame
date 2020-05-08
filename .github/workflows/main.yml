@@ -179,8 +179,8 @@ jobs:
           
       - name: ls after mv
         run: |
-          ls .docs/build
-          ls .frontend/dist
+          ls ./docs/build
+          ls ./frontend/dist
       
       - name: Build containers
         run: |
