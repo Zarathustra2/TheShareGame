@@ -48,7 +48,7 @@ services:
     volumes:
     - static_volume:/app/backend/staticfiles
     - media_volume:/app/backend/mediafiles
-    - './fonts:/usr/share/fonts/'
+    - './.fonts:/usr/share/fonts/'
     environment:
       REDIS_URL: "${REDIS_URL}"
       POSTGRES_USER: "${POSTGRES_USER}"
