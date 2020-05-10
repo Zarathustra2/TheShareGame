@@ -1,28 +1,22 @@
-import { createLocalVue, mount } from '@vue/test-utils';
-import HighchartsVue from 'highcharts-vue';
+import { createLocalVue, shallowMount } from '@vue/test-utils';
 import Bonds from '@/views/market/Bonds.vue';
 import Service from '@/service/service';
 
 const localVue = createLocalVue();
-localVue.use(HighchartsVue);
 
-const mockRateData = [
-  {
-    rate: 2.5,
-    created: '2019-12-27T15:19:32.697000Z',
-    id: 1,
+const options = {
+  localVue,
+  mocks: {
+    $http: {
+      get() {
+        return Promise.resolve({ data: {} });
+      },
+      post() {
+        return Promise.resolve({ data: {} });
+      },
+    },
   },
-  {
-    rate: 3.0,
-    created: '2019-12-27T16:19:38.226000Z',
-    id: 2,
-  },
-  {
-    rate: 2.7,
-    created: '2019-12-27T17:19:53.984000Z',
-    id: 3,
-  },
-];
+};
 
 describe('Bonds', () => {
   let wrapper;
@@ -37,36 +31,12 @@ describe('Bonds', () => {
 
     Service.saveCompany(c);
 
-    wrapper = mount(Bonds, {
-      localVue,
-      attachToDocument: true,
-      mocks: {
-        $http: {
-          get(url) {
-            if (url.includes('rates')) return Promise.resolve({ data: mockRateData });
-            return Promise.resolve({ data: {} });
-          },
-          post() {
-            return Promise.resolve({ data: {} });
-          },
-        },
-      },
-    });
+    wrapper = shallowMount(Bonds, options);
   });
 
   it('disables the form if the user is not authenticated', () => {
     jest.spyOn(Service, 'isAuthenticated').mockImplementation(() => false);
-    wrapper = mount(Bonds, {
-      localVue,
-      mocks: {
-        $http: {
-          get(url) {
-            if (url.includes('rates')) return Promise.resolve({ data: mockRateData });
-            return Promise.resolve({ data: {} });
-          },
-        },
-      },
-    });
+    wrapper = shallowMount(Bonds, options);
 
     expect(wrapper.html()).toContain('  You need an account to buy bonds!');
   });

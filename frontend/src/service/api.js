@@ -27,6 +27,8 @@ const Api = {
 
   activeCompany: () => `${url}/companies/get/active/`,
 
+  liquidityOverview: () => `${url}/companies/liquidity/`,
+
   companies: (page, size, ctx) => sortedApi(`${url}/companies/?page=${page}&page_size=${size}`, ctx),
 
   trades: (page, size, ctx) => sortedApi(`${url}/trades/?page=${page}&page_size=${size}`, ctx),

@@ -19,58 +19,65 @@
 
     <div v-if="isAuthenticated">
 
-      <b-form @submit.prevent="submit">
+      <b-row>
+        <b-col cols="6">
+          <b-form @submit.prevent="submit">
 
-        <b-form-group
-          label="Value:"
-          label-for="value"
-          description="The Value of a single bond you would like to buy"
-        >
-          <b-form-input
-            id="input-1"
-            v-model="form.value"
-            required
-            placeholder="100000"
-            ref="valueInput"
-          />
-          <b-form-invalid-feedback :state="formFeedback.valueValid">
-            {{ formFeedback.valueErrMsg }}
-          </b-form-invalid-feedback>
-        </b-form-group>
+            <b-form-group
+              label="Value:"
+              label-for="value"
+              description="The Value of a single bond you would like to buy"
+            >
+              <b-form-input
+                id="input-1"
+                v-model="form.value"
+                required
+                placeholder="100000"
+                ref="valueInput"
+              />
+              <b-form-invalid-feedback :state="formFeedback.valueValid">
+                {{ formFeedback.valueErrMsg }}
+              </b-form-invalid-feedback>
+            </b-form-group>
 
-        <b-form-group label="Amount" label-for="amount"
-                      description="The amount of the bonds you would like to buy"
-        >
-          <b-form-select
-            v-model="form.amount"
-            :options="amountOption"
-            required
-            ref="amountInput"
-          />
-          <b-form-invalid-feedback :state="formFeedback.amountValid">
-            {{ formFeedback.amountErrMsg }}
-          </b-form-invalid-feedback>
-        </b-form-group>
+            <b-form-group label="Amount" label-for="amount"
+                          description="The amount of the bonds you would like to buy"
+            >
+              <b-form-select
+                v-model="form.amount"
+                :options="amountOption"
+                required
+                ref="amountInput"
+              />
+              <b-form-invalid-feedback :state="formFeedback.amountValid">
+                {{ formFeedback.amountErrMsg }}
+              </b-form-invalid-feedback>
+            </b-form-group>
 
-        <b-form-group label="Runtime" label-for="runtime"
-                      description="The runtime in days for the bonds"
-        >
-          <b-form-select
-            v-model="form.runtime"
-            :options="runtimeOption"
-            required
-            ref="runtimeInput"
-          />
-          <b-form-invalid-feedback :state="formFeedback.runtimeValid">
-            {{ formFeedback.runtimeErrMsg }}
-          </b-form-invalid-feedback>
-        </b-form-group>
+            <b-form-group label="Runtime" label-for="runtime"
+                          description="The runtime in days for the bonds"
+            >
+              <b-form-select
+                v-model="form.runtime"
+                :options="runtimeOption"
+                required
+                ref="runtimeInput"
+              />
+              <b-form-invalid-feedback :state="formFeedback.runtimeValid">
+                {{ formFeedback.runtimeErrMsg }}
+              </b-form-invalid-feedback>
+            </b-form-group>
 
-        <AlertDangerForm :isValid="formFeedback.isValid" :errMessage="formFeedback.errMessage">
-        </AlertDangerForm>
+            <AlertDangerForm :isValid="formFeedback.isValid" :errMessage="formFeedback.errMessage">
+            </AlertDangerForm>
 
-        <b-button variant="primary" type="submit" class="buttonBond">Submit</b-button>
-      </b-form>
+            <b-button variant="primary" type="submit" class="buttonBond">Submit</b-button>
+          </b-form>
+        </b-col>
+        <b-col cols="6">
+          <LiquidityOverview/>
+        </b-col>
+      </b-row>
 
     </div>
 
@@ -85,12 +92,13 @@
 import Headline from '@/components/Headline.vue';
 import AlertDangerForm from '@/components/AlertDangerForm.vue';
 import BondsRateChart from '@/components/charts/BondsRateChart.vue';
+import LiquidityOverview from '@/components/company/LiquidityOverview.vue';
 import Service from '@/service/service';
 import { parseErrorsForm, resetFormErrors } from '@/service/errors';
 import Api from '@/service/api';
 import { Number } from '@/service/utils';
 import {
-  BFormGroup, BButton, BFormInput, BForm, BFormSelect, BFormInvalidFeedback,
+  BFormGroup, BButton, BFormInput, BForm, BFormSelect, BFormInvalidFeedback, BRow, BCol,
 } from 'bootstrap-vue';
 
 /**
@@ -109,6 +117,9 @@ export default {
     BForm,
     BFormSelect,
     BFormInvalidFeedback,
+    LiquidityOverview,
+    BRow,
+    BCol,
   },
   data() {
     return {

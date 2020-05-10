@@ -261,6 +261,9 @@ class Order(models.Model):
     def type_sell(cls) -> str:
         return "Sell"
 
+    def get_value(self):
+        return self.price * self.amount
+
     def __str__(self):
         return f"Order by:{self.order_by}, Order of: {self.order_of}, Amount: {self.amount}, Price: {self.price}"
 

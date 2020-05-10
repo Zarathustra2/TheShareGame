@@ -337,7 +337,7 @@ class LiquidityRetrieveView(APIView):
         isin = self.kwargs["isin"]
         company = (
             Company.objects.only("cash", "isin")
-            .filter(isin=isin)
+            .filter(id=Company.get_id_from_isin(isin))
             .annotate(
                 bond_value=Coalesce(
                     Subquery(
@@ -500,5 +500,59 @@ class SidebarInfoRetrieveView(RetrieveAPIView):
         data["companies_count"] = companies_count
         data["buy_orders_count"] = buy_orders_count
         data["sell_orders_count"] = sell_orders_count
+
+        return Response(data=data)
+
+
+class LiquidityOverviewView(RetrieveAPIView):
+    """
+    Returns the liquidity overview for the authenticated user.
+
+    The data returned is:
+        - cash
+        - value of all buy orders by the current user
+        - bond values
+    """
+
+    permission_classes = (IsAuthenticated,)
+
+    def get(self, request, *args, **kwargs):
+        user_id = request.user.id
+
+        company = (
+            Company.objects.only("cash", "user_id")
+            .filter(user_id=user_id)
+            .annotate(
+                bond_value=Coalesce(
+                    Subquery(
+                        Bond.objects.filter(company_id=OuterRef("id"))
+                        .values("company_id")
+                        .annotate(s=Sum("value"))
+                        .values("s")[:1],
+                        output_field=DecimalField(),
+                    ),
+                    0,
+                ),
+                buy_orders=Coalesce(
+                    Subquery(
+                        Order.objects.add_value()
+                        .filter(order_by_id=OuterRef("id"), typ=Order.type_buy())
+                        .values("order_by_id")
+                        .annotate(s=Sum("value"))
+                        .values("s")[:1],
+                        output_field=DecimalField(),
+                    ),
+                    0,
+                ),
+            )
+            .values("cash", "bond_value", "buy_orders")
+        )
+
+        company = company.first()
+
+        if not company:
+            raise Http404
+
+        data = {"cash": company["cash"], "bonds": company["bond_value"], "buy_orders": company["buy_orders"]}
 
         return Response(data=data)

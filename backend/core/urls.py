@@ -18,6 +18,7 @@ router.register(r"companies/(?P<isin>[-\w]+)/depot", views.DepotPositionViewSet,
 urlpatterns = [
     path("companies/", views.CompanyListCreateView.as_view(), name="companies"),
     path("companies/get/active/", views.ActiveCompanyRetrieveView.as_view(), name="active_company"),
+    path("companies/liquidity/", views.LiquidityOverviewView.as_view(), name="liquidity_overiew"),
     path("companies/<slug:isin>/", views.CompanyRetrieveView.as_view(), name="company"),
     path("companies/<slug:isin>/shareholders/", views.ShareholdersListView.as_view(), name="shareholders"),
     path("companies/<slug:isin>/liquidity/", views.LiquidityRetrieveView.as_view(), name="liquidity"),

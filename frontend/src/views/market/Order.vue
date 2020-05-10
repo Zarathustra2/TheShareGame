@@ -8,7 +8,9 @@
        Requirements for a buy order is that you have enough money.
     </p>
     <hr>
-    <b-form @submit.prevent="onSubmit">
+    <b-row>
+      <b-col>
+        <b-form @submit.prevent="onSubmit">
 
       <b-form-group
         label="ISIN:"
@@ -79,19 +81,28 @@
 
       <b-button variant="primary" type="submit" class="buttonRegister">Submit</b-button>
     </b-form>
+      </b-col>
+      <b-col>
+        <LiqudityOverview/>
+      </b-col>
+    </b-row>
+
   </div>
 </template>
 
 <script>
 import AlertDangerForm from '@/components/AlertDangerForm.vue';
 import Headline from '@/components/Headline.vue';
+import LiqudityOverview from '@/components/company/LiquidityOverview.vue';
+
 import Service from '@/service/service';
 import Api from '@/service/api';
 import { parseErrorsForm, resetFormErrors } from '@/service/errors';
 
 import {
-  BForm, BButton, BFormGroup, BFormInvalidFeedback, BFormSelect, BFormInput,
+  BForm, BButton, BFormGroup, BFormInvalidFeedback, BFormSelect, BFormInput, BCol, BRow,
 } from 'bootstrap-vue';
+
 
 /**
  * Renders an order form which allows users to create new orders.
@@ -99,6 +110,7 @@ import {
 export default {
   name: 'Order',
   components: {
+    LiqudityOverview,
     Headline,
     AlertDangerForm,
     BForm,
@@ -107,6 +119,8 @@ export default {
     BFormInvalidFeedback,
     BFormSelect,
     BFormInput,
+    BCol,
+    BRow,
   },
   data() {
     return {

@@ -969,3 +969,56 @@ class SidebarApiTest(BaseTestCase):
         }
 
         self.assertDictEqual(should_be, rsp.json())
+
+
+class LiquidityOverviewApiTest(BaseTestCase):
+    def setUp(self):
+        super().setUp()
+
+        self.company_two = Company.objects.create(name="B")
+
+        self.buy_order_one = Order.objects.create(
+            order_of=self.company_two, order_by=self.company, price=10, amount=1000, typ=Order.type_buy()
+        )
+
+        self.buy_order_two = Order.objects.create(
+            order_of=self.company_two, order_by=self.company, price=8, amount=1000, typ=Order.type_buy()
+        )
+
+        self.sell_order = Order.objects.create(
+            order_of=self.company_two, order_by=self.company, price=12, amount=1000, typ=Order.type_sell()
+        )
+
+        self.url = reverse("core:liquidity_overiew")
+
+    def test_none_authenticated_user(self):
+        self.client.force_authenticate(user=None)
+        rsp = self.client.get(self.url)
+
+        self.assertEqual(401, rsp.status_code)
+
+    def test_get_data(self):
+        self.client.force_authenticate(user=self.user)
+        rsp = self.client.get(self.url)
+
+        self.assertEqual(200, rsp.status_code)
+        data = rsp.json()
+
+        buy_orders = self.buy_order_one.get_value() + self.buy_order_two.get_value()
+
+        self.assertEqual(buy_orders, data.get("buy_orders"))
+        self.assertEqual(self.company.cash, data.get("cash"))
+        self.assertEqual(0, data.get("bonds"))
+
+    def test_user_no_company(self):
+        self.user.company.delete()
+        self.client.force_authenticate(user=self.user)
+        rsp = self.client.get(self.url)
+
+        self.assertEqual(404, rsp.status_code)
+
+    def test_num_queries(self):
+        self.client.force_authenticate(user=self.user)
+
+        with self.assertNumQueries(1):
+            rsp = self.client.get(self.url)
