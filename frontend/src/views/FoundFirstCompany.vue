@@ -128,7 +128,7 @@ export default {
         isValid: true,
         errMessage: '',
       },
-      sharesOption: [10000, 20000, 50000, 1000000, 1000000],
+      sharesOption: [10000, 20000, 50000, 1000000],
       countries: ['US', 'GE', 'RU', 'IR'],
 
     };

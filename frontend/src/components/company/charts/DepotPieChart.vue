@@ -69,6 +69,8 @@ export default {
       });
       this.dataDepot = data;
 
+      this.dataDepot.sort((a, b) => a.y < b.y);
+
       this.$emit('depot', data);
     });
   },

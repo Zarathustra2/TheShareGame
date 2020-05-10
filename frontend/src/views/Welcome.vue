@@ -17,11 +17,6 @@
                 <button type="button" class="btn btn-primary">Log in</button>
               </a>
             </div>
-            <div class="row col-lg-12" style="margin-top: 10px">
-              <a href="">
-                <button type="button" class="btn btn-sm btn-primary">Forgot password?</button>
-              </a>
-            </div>
           </div>
         </div>
       </div>
@@ -66,52 +61,6 @@
       </div>
     </section>
 
-    <section class="showcase">
-      <div class="container-fluid p-0">
-        <div class="row no-gutters">
-          <div class="col-lg-6 col-sm-12">
-            <img src="" style="width:100%;">
-          </div>
-          <div class="col-lg-6 order-lg-1 my-auto showcase-text">
-            <h2>Analyze Shares</h2>
-            <p class="lead mb-0">
-              Analyze the key figures of other Shares and evaluate whether they are overpriced or
-              not
-            </p>
-          </div>
-        </div>
-        <div class="row no-gutters">
-
-
-          <div class="col-lg-6 my-auto showcase-text">
-            <h2>Orders</h2>
-            <p class="lead mb-0">
-
-              Jump in the live order section to check out the all orders.
-              Create normal, dynamic and iceberg orders
-
-            </p>
-
-          </div>
-          <div class="col-lg-6 text-white showcase-img"></div>
-        </div>
-
-
-        <div class="row no-gutters">
-          <div class="col-lg-6 col-sm-12">
-            <img src="" style="width:100%;">
-          </div>
-
-          <div class="col-lg-6 order-lg-1 my-auto showcase-text">
-            <h2>Earn Achievements</h2>
-            <p class="lead mb-0">
-              While playing you can earn several achievements with different degrees of difficulty.
-              Will you be able to collect'em all?
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
   </div>
 </template>
 

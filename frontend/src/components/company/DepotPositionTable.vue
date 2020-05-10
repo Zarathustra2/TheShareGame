@@ -69,8 +69,11 @@ export default {
   methods: {
     getPositions(c) {
       const formatter = (item) => {
-        // Needs to best the first one in the order. Otherwise we would pass in strings
-        item.value = Number.numberWithDollar(item.share_price * item.amount);
+        // Since we replace item.share_price and item.amount with strings
+        // in the following lines, item.value must occur before
+        // those two.
+        const value = this.round(item.share_price * item.amount);
+        item.value = Number.numberWithDollar(value);
 
         item.price_bought = Number.numberWithDollar(item.price_bought);
         item.share_price = Number.numberWithDollar(item.share_price);
@@ -81,6 +84,9 @@ export default {
       Table.getTableData({
         url, component: c, page: c.page, size: c.size, formatter,
       });
+    },
+    round(num) {
+      return Math.round(num * 100) / 100;
     },
   },
 };
