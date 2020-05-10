@@ -19,8 +19,8 @@ jobs:
         env:
           SSH_AUTH_SOCK: /tmp/ssh_agent.sock
         run: |
-          ssh-keyscan github.com >> ~/.ssh/known_hosts
           mkdir -p ~/.ssh
+          ssh-keyscan github.com >> ~/.ssh/known_hosts
           ssh-agent -a $SSH_AUTH_SOCK > /dev/null
           ssh-add - <<< "${{ secrets.DEPLOY_KEY }}"
           ssh -o StrictHostKeyChecking=no ${{secrets.REMOTE_USER}}@${{ secrets.REMOTE_IP }} << 'ENDSSH'
