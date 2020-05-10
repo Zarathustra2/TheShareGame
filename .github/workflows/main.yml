@@ -15,7 +15,7 @@ jobs:
     if: github.ref == 'refs/heads/master'
 
     steps:
-      - name: Can ssh into the session
+      - name: Restart server containers
         env:
           SSH_AUTH_SOCK: /tmp/ssh_agent.sock
         run: |
@@ -24,7 +24,10 @@ jobs:
           ssh-agent -a $SSH_AUTH_SOCK > /dev/null
           ssh-add - <<< "${{ secrets.DEPLOY_KEY }}"
           ssh -o StrictHostKeyChecking=no ${{secrets.REMOTE_USER}}@${{ secrets.REMOTE_IP }} << 'ENDSSH'
-            ls
+            cd TheShareGame
+            git pull origin master
+            make build
+            docker-compose up --build --force-recreate -d
           ENDSSH
 
   websockets:
