@@ -9,6 +9,24 @@ on:
 
 jobs:
 
+  deploy:
+    runs-on: ubuntu-latest
+    needs: [websockets, docs, frontend, backend, docker]
+    if: github.ref == 'refs/heads/master'
+
+    steps:
+      - name: Can ssh into the session
+        env:
+          SSH_AUTH_SOCK: /tmp/ssh_agent.sock
+        run: |
+          ssh-keyscan github.com >> ~/.ssh/known_hosts
+          mkdir -p ~/.ssh
+          ssh-agent -a $SSH_AUTH_SOCK > /dev/null
+          ssh-add - <<< "${{ secrets.DEPLOY_KEY }}"
+          ssh -o StrictHostKeyChecking=no ${{secrets.REMOTE_USER}}@${{ secrets.REMOTE_IP }} << 'ENDSSH'
+            ls
+          ENDSSH
+
   websockets:
     runs-on: ubuntu-latest
     defaults:
