@@ -11,8 +11,8 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest
-    needs: [websockets, docs, frontend, backend, docker]
-    if: github.ref == 'refs/heads/master'
+    # needs: [websockets, docs, frontend, backend, docker]
+    # if: github.ref == 'refs/heads/master'
 
     steps:
       - name: Can ssh into the session
