@@ -27,7 +27,7 @@ jobs:
             cd TheShareGame
             git pull origin master
             make build
-            docker-compose up --build --force-recreate -d
+            docker-compose up --force-recreate -d
           ENDSSH
 
   websockets:
