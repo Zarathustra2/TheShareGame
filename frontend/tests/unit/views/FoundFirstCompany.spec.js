@@ -13,12 +13,21 @@ const postData = {
   },
 };
 
+const validName = 'Max';
+
 const data = {
   form: {
-    name: 'Max',
+    name: validName,
     country: 'IR',
     shares: 1000,
   },
+};
+
+
+const errData = {
+  name: 'Not a real name!',
+  country: 'not in choices',
+  shares: 'too few',
 };
 
 
@@ -33,12 +42,22 @@ describe('FoundFirstCompany.vue', () => {
           push: jest.fn(),
         },
         $http: {
-          post: () => Promise.resolve({ data: postData }),
+          post: (_, payload) => {
+            if (payload.name === validName) {
+              return Promise.resolve({ data: postData });
+            }
+            return Promise.reject({
+              response: {
+                data: errData,
+              },
+            });
+          },
         },
       },
     });
 
     localStorage.clear();
+    data.form.name = validName;
   });
 
   it('renders name, country and shares', async () => {
@@ -79,5 +98,24 @@ describe('FoundFirstCompany.vue', () => {
       postData.isin,
       },
     });
+  });
+
+  it('renders errors', async () => {
+    data.form.name = 'invalid-name';
+
+    wrapper.setData(data);
+    await wrapper.vm.$nextTick();
+
+    console.error = jest.fn();
+    wrapper.find('.submit-btn').trigger('submit');
+    await wrapper.vm.$nextTick();
+    await wrapper.vm.$nextTick();
+
+    expect(console.error).toHaveBeenCalled();
+
+    // eslint-disable-next-line
+    for (const [_, value] of Object.entries(errData)) {
+      expect(wrapper.html()).toContain(value);
+    }
   });
 });
