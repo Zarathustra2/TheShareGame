@@ -29,7 +29,9 @@
     </div>
     <hr>
     <b-row class="justify-content-md-center">
-      <b-button variant="success" v-on:click="githubLogin">Login/Register with Github</b-button>
+      <b-button variant="success" v-on:click="githubLogin" class="submit-github">
+        Login/Register with Github
+      </b-button>
     </b-row>
 
     <b-modal id="bv-modal-success" centered hide-footer>
@@ -48,7 +50,7 @@ import Api from '@/service/api';
 import Service from '@/service/service';
 import Headline from '@/components/Headline.vue';
 import {
-  BRow, BButton, BForm, BModal, BFormInput, ModalPlugin,
+  BRow, BButton, BForm, BModal, BFormInput, ModalPlugin, BAlert,
 } from 'bootstrap-vue';
 
 import Vue from 'vue';
@@ -58,7 +60,7 @@ Vue.use(ModalPlugin);
 export default {
   name: 'Login',
   components: {
-    Headline, BRow, BButton, BForm, BModal, BFormInput,
+    Headline, BRow, BButton, BForm, BModal, BFormInput, BAlert,
   },
   data() {
     return {
@@ -94,12 +96,8 @@ export default {
         })
         .catch((e) => {
           console.log(e);
-          this.errMessage = 'An unexpected error occurred!';
           this.isValid = false;
-
-          if (e.response.status === 400) {
-            this.errMessage = 'Username or password was wrong. Please try again!';
-          }
+          this.errMessage = 'Username or password was wrong. Please try again!';
         });
     },
 
@@ -117,7 +115,7 @@ export default {
         })
         .catch((e) => {
           console.log(e);
-          this.$router.push('foundFirstCompany');
+          this.$router.push({ name: 'foundFirstCompany' });
         });
     },
 
@@ -135,8 +133,10 @@ export default {
           this.forward(token);
         }, 1300);
       }).catch((err) => {
-        console.log(err);
-        console.log(err.response.data);
+        console.error(err);
+        this.isValid = false;
+        this.errMessage = 'Something during the authentication with github failed.'
+                          + ' If this keeps happening, please open an issue on github.com';
       });
     },
   },
