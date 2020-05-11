@@ -184,6 +184,7 @@ export default {
       }
 
       this.$bvToast.toast([msg], {
+        id: 'bond-notification',
         title,
         autoHideDelay: 5000,
         appendToast: false,
