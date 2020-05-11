@@ -121,7 +121,7 @@ class KeyFiguresBase(models.Model):
         """
         v = (
             # DepotPosition.objects.add_percentage()
-            c.depotposition_set.add_percentage()
+            c.in_depots.add_percentage()
             .filter(percentage__lte=20)
             .aggregate(s=Sum("percentage"))
             .get("s", 0)

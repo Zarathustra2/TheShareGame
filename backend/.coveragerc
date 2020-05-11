@@ -4,6 +4,9 @@ omit =
     */venv/*
     */migrations/*
     */tests/*
+    periodic_tasks/orders_old.py
+    manage.py
+    common/checks.py
     utils/test_base.py
     */apps.py
     */wsgi.py
