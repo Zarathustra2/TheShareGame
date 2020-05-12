@@ -56,7 +56,7 @@ jobs:
     - name: Test
       run: |
         make cov
-#          bash <(curl https://codecov.io/bash) -f coverage.txt -F chat
+        # bash <(curl https://codecov.io/bash) -f coverage.txt -F chat
     
     - name: Upload coverage to codecov
       uses: codecov/codecov-action@v1
@@ -115,7 +115,14 @@ jobs:
     - name: Test
       run: |
         make cov
-        bash <(curl https://codecov.io/bash) -f ./coverage/lcov.info -F frontend
+        # bash <(curl https://codecov.io/bash) -f ./coverage/lcov.info -F frontend
+    
+    - name: Upload coverage to codecov
+      uses: codecov/codecov-action@v1
+      with:
+        file: ./frontend/coverage/lcov.info
+        flags: frontend
+        fail_ci_if_error: true 
     
     - name: Build
       run: make build
@@ -176,7 +183,14 @@ jobs:
     - name: Test
       run: |
         make cov
-        bash <(curl https://codecov.io/bash) -f coverage.xml -F backend
+        # bash <(curl https://codecov.io/bash) -f coverage.xml -F backend
+
+    - name: Upload coverage to codecov
+      uses: codecov/codecov-action@v1
+      with:
+        file: ./backend/coverage.xml
+        flags: backend
+        fail_ci_if_error: true
         
 
   docker:
