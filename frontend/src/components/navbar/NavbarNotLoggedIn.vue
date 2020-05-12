@@ -46,6 +46,19 @@
           Docs
         </b-button>
 
+      </b-navbar-nav>
+
+      <b-navbar-nav class="ml-auto">
+
+        <b-button
+          size="sm" class="my-2 my-sm-0" variant="success"
+          style="margin-right: 5px" target="_blank"
+          href="https://github.com/Zarathustra2/TheShareGame"
+          >
+            Github
+        </b-button>
+
+          <b-button size="sm" class="my-2 my-sm-0" variant="warning">Beta</b-button>
 
       </b-navbar-nav>
 
