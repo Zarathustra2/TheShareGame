@@ -79,7 +79,7 @@
       <AlertDangerForm :isValid="this.formFeedback.isValid"
       :errMessage="this.formFeedback.errMessage"></AlertDangerForm>
 
-      <b-button variant="primary" type="submit" class="buttonRegister">Submit</b-button>
+      <b-button variant="primary" type="submit" class="submit-btn">Submit</b-button>
     </b-form>
       </b-col>
       <b-col>
@@ -95,7 +95,6 @@ import AlertDangerForm from '@/components/AlertDangerForm.vue';
 import Headline from '@/components/Headline.vue';
 import LiqudityOverview from '@/components/company/LiquidityOverview.vue';
 
-import Service from '@/service/service';
 import Api from '@/service/api';
 import { parseErrorsForm, resetFormErrors } from '@/service/errors';
 
@@ -144,8 +143,6 @@ export default {
         isValid: true,
         errMessage: '',
       },
-
-      authenticated: Service.isAuthenticated(),
     };
   },
   methods: {
@@ -173,12 +170,7 @@ export default {
           order_of_isin: 'isin',
         };
 
-        if (err.response === undefined) {
-          console.err('err.response is undefined');
-          console.err(err);
-        } else {
-          parseErrorsForm(this, err.response.data, fieldMapping);
-        }
+        parseErrorsForm(this, err.response.data, fieldMapping);
       });
     },
     showToast() {
@@ -191,6 +183,7 @@ export default {
         autoHideDelay: 5000,
         appendToast: false,
         variant: 'primary',
+        id: 'order-notification',
       });
     },
   },
