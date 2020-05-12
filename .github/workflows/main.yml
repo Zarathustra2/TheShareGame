@@ -56,7 +56,14 @@ jobs:
     - name: Test
       run: |
         make cov
-        bash <(curl https://codecov.io/bash) -f coverage.txt -F chat
+#          bash <(curl https://codecov.io/bash) -f coverage.txt -F chat
+    
+    - name: Upload coverage to codecov
+      uses: codecov/codecov-action@v1
+      with:
+        file: ./coverage.txt 
+        flags: chat
+        fail_ci_if_error: true 
   
     - name: Build
       run: make build
