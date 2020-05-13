@@ -100,7 +100,7 @@
           </span>
 
           <AlertDangerForm :isValid="formFeedback.isValid" :errMessage="formFeedback.errMessage"/>
-          <b-button type="submit" variant="primary">Submit</b-button>
+          <b-button type="submit" variant="primary" class="btn-submit">Submit</b-button>
 
         </b-form>
       </b-col>
@@ -228,6 +228,7 @@ export default {
           autoHideDelay: 5000,
           appendToast: false,
           variant: 'primary',
+          id: 'profile-notification',
         });
       }).catch((err) => {
         parseErrorsForm(this, err.response.data);

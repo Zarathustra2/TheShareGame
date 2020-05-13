@@ -1,3 +1,5 @@
+var sanitizeHtml = require('sanitize-html');
+
 class LocalStorageMock {
   constructor() {
     this.store = {};
@@ -37,3 +39,18 @@ global.MutationObserver = class {
     disconnect() {}
     observe(element, initObject) {}
 };
+
+
+// jsdom on which jest relies does not include support for innerText
+// values during test.
+//
+// https://github.com/jsdom/jsdom/issues/1245
+Object.defineProperty(global.Element.prototype, 'innerText', {
+  get() {
+    return sanitizeHtml(this.textContent, {
+      allowedTags: [], // remove all tags and return text content only
+      allowedAttributes: {}, // remove all tags and return text content only
+    });
+  },
+  configurable: true, // make it so that it doesn't blow chunks on re-running tests with things like --watch
+});
