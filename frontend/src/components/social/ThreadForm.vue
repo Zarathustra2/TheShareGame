@@ -16,7 +16,7 @@
           {{ formFeedback.nameErrMsg }}
         </b-form-invalid-feedback>
       </b-form-group>
-      <b-button type="submit" variant="success">Submit</b-button>
+      <b-button class="submit-btn" type="submit" variant="success">Submit</b-button>
 
       <AlertDangerForm :isValid="formFeedback.isValid" :errMessage="formFeedback.errMessage">
 
@@ -48,7 +48,6 @@ export default {
     return {
       form: {
         name: '',
-
       },
 
       formFeedback: {
@@ -70,10 +69,7 @@ export default {
 
       const data = { name };
 
-      console.log('ThreadForm: ', this.url);
-
-      this.$http.post(this.url, data).then((r) => {
-        console.log('ThreadForm: ', r);
+      this.$http.post(this.url, data).then(() => {
         this.created = true;
         this.$emit('forceReload', true);
       }).catch((e) => {

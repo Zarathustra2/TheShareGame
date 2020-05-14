@@ -7,15 +7,12 @@ import Service from '@/service/service';
 import { NavbarPlugin } from 'bootstrap-vue';
 import mockRouter from '../../mockRouter';
 
-
 const router = mockRouter.mock();
 const localVue = createLocalVue();
 localVue.use(VueRouter);
 localVue.use(NavbarPlugin);
 
-
 const mockData = {
-
   count: 3,
   results: [
     {
@@ -55,11 +52,21 @@ const mockData = {
       },
     },
   ],
-
 };
 
 describe('Newspaper', () => {
   let wrapper;
+
+  const switchToForm = (wrap, tab) => {
+    const elemes = wrap.find('.newspaper-tabs').findAll('a');
+    expect(elemes.length).toBe(2);
+
+    const elem = elemes.at(tab);
+
+    elem.trigger('click');
+  };
+
+
   beforeEach(() => {
     Service.saveToken('token');
     wrapper = mount(Newspaper, {
@@ -110,5 +117,17 @@ describe('Newspaper', () => {
     results.forEach((r) => {
       expect(html).toContain(r.text);
     });
+  });
+
+  it('updates page on tab change', async () => {
+    expect(wrapper.contains(ArticleForm)).not.toBe(true);
+    switchToForm(wrapper, 1);
+
+    await wrapper.vm.$nextTick();
+    expect(wrapper.contains(ArticleForm)).toBe(true);
+
+    switchToForm(wrapper, 0);
+    await wrapper.vm.$nextTick();
+    expect(wrapper.contains(ArticleForm)).not.toBe(true);
   });
 });

@@ -1,15 +1,8 @@
 import { createLocalVue, mount } from '@vue/test-utils';
-import VueRouter from 'vue-router';
 import Trades from '@/views/company/Trades.vue';
-
-import { Table } from '@/service/utils';
-import getTableDataMock from '../../utilsMock';
-import mockRouter from '../../mockRouter';
-
+import { Number } from '@/service/utils';
 
 const localVue = createLocalVue();
-const router = mockRouter.mock();
-localVue.use(VueRouter);
 
 const mockItems = [
   {
@@ -58,19 +51,23 @@ const mockItems = [
   },
 ];
 
-jest.spyOn(Table, 'getTableData').mockImplementation(getTableDataMock(mockItems));
-jest.spyOn(Table, 'getTableNameAndCompanyName').mockImplementation(jest.fn(() => {}));
-
 describe('Trades', () => {
   let wrapper;
   beforeEach(() => {
     wrapper = mount(Trades, {
       localVue,
-      router,
+      stubs: ['router-link'],
       mocks: {
+        $route: {
+          params: { isin: 'RU002346' },
+        },
         $http: {
-          get() {
-            return Promise.resolve({ data: { name: 'Company Name' } });
+          get(url) {
+            if (!url.includes('trade')) {
+              return Promise.resolve({ data: { name: 'Company Name' } });
+            }
+            const copy = JSON.parse(JSON.stringify(mockItems));
+            return Promise.resolve({ data: { results: copy } });
           },
         },
       },
@@ -79,5 +76,14 @@ describe('Trades', () => {
 
   it('fetches the company name if not provided', () => {
     expect(wrapper.vm.name).toEqual('Company Name');
+  });
+
+  it('renders the data', async () => {
+    await wrapper.vm.$nextTick();
+
+    for (let i = 0; i < mockItems.length; i++) {
+      const item = mockItems[i];
+      expect(wrapper.html()).toContain(Number.numberWithDollar(item.price));
+    }
   });
 });

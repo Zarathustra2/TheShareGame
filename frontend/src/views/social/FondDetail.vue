@@ -6,7 +6,7 @@
     </span>
     <span v-else>
 
-      <b-nav tabs class="profile-tabs" v-show="ownFond()" style="margin-bottom: 15px">
+      <b-nav tabs class="fonds-tabs" v-if="ownFond()" style="margin-bottom: 15px">
         <b-nav-item :active="detailTab()" :disabled="detailTab()" v-on:click="tabClick">
           Detail
         </b-nav-item>
@@ -36,7 +36,6 @@
             <div class="card card-body bg-light">
               <h5>Description</h5>
               <hr>
-              <!-- <vue&#45;markdown>{{profile.description}}</vue&#45;markdown> -->
               <Marked :markdown="profile.description"></Marked>
             </div>
           </b-col>
@@ -202,7 +201,14 @@ export default {
       return Number.numberWithDollar(num);
     },
     tabClick(e) {
-      const txt = e.target.innerText;
+      let txt = e.target.innerText;
+
+      // Remove leading spaces and newlines as well as subsequent ones.
+      // \n is covered by \s.
+      // ^\s+ matches every whitespace from the beginning of the line until the first none
+      // whitespace character and replaces it with ''.
+      // Same for \s+$ but this time it matches everything after the word to the end of the line.
+      txt = txt.replace(/^\s+|\s+$/g, '');
       this.activeTab = txt.toLowerCase();
     },
     detailTab() {

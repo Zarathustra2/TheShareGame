@@ -64,7 +64,7 @@
 
       <AlertDangerForm :isValid="formFeedback.isValid" :errMessage="formFeedback.errMessage"/>
 
-      <b-button variant="primary" type="submit">Submit</b-button>
+      <b-button variant="primary" type="submit" class="submit-btn">Submit</b-button>
     </b-form>
 
     <b-modal id="bv-modal-founding" centered hide-footer>
@@ -100,7 +100,7 @@ Vue.use(ModalPlugin);
 
 
 export default {
-  name: 'Register',
+  name: 'FoundFirstCompany',
   components: {
     AlertDangerForm,
     Headline,
@@ -147,15 +147,14 @@ export default {
 
       this.$http.post(Api.companies(), data)
         .then((r) => {
-          if (r.status === 201) {
-            const company = r.data;
-            const { isin } = company;
-            Service.saveCompany(company);
+          const company = r.data;
+          const { isin } = company;
+          Service.saveCompany(company);
 
-            this.$router.push({ name: 'company', params: { isin } });
-          }
+          this.$router.push({ name: 'company', params: { isin } });
         })
         .catch((e) => {
+          console.error(e);
           parseErrorsForm(this, e.response.data);
         });
     },

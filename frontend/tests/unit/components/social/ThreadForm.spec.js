@@ -1,44 +1,62 @@
 import { createLocalVue, mount } from '@vue/test-utils';
 
-import VueRouter from 'vue-router';
 import ThreadForm from '@/components/social/ThreadForm.vue';
 
 const localVue = createLocalVue();
-const router = new VueRouter();
-localVue.use(VueRouter);
 
+const validName = 'new-thread';
+const inValidName = 'invalid-name';
 
 describe('ThreadForm', () => {
   let wrapper;
   beforeEach(() => {
     wrapper = mount(ThreadForm, {
       localVue,
-      router,
       mocks: {
         $http: {
-
+          post: (_, data) => {
+            if (data.name === validName) {
+              return Promise.resolve();
+            }
+            return Promise.reject({
+              response: {
+                data: {
+                  name: 'Name Error!',
+                },
+              },
+            });
+          },
         },
       },
     });
   });
 
   it('displays error messages', async () => {
-    const keys = ['nameErrMsg', 'errMessage'];
-
-    const data = {
-      formFeedback: {
-        nameValid: false,
-        nameErrMsg: 'Name Error!',
-        isValid: false,
-        errMessage: 'Err Message!',
+    wrapper.setData({
+      form: {
+        name: inValidName,
       },
-    };
+    });
 
-    wrapper.setData(data);
+    wrapper.find('.submit-btn').trigger('submit');
+
+    await wrapper.vm.$nextTick();
     await wrapper.vm.$nextTick();
 
-    keys.forEach((e) => {
-      expect(wrapper.html()).toContain(data.formFeedback[e]);
+    expect(wrapper.html()).toContain('Name Error!');
+  });
+
+  it('emits event if new thread has been created', async () => {
+    wrapper.setData({
+      form: {
+        name: validName,
+      },
     });
+
+    wrapper.find('.submit-btn').trigger('submit');
+
+    await wrapper.vm.$nextTick();
+
+    expect(wrapper.emitted('forceReload')).toBeTruthy();
   });
 });

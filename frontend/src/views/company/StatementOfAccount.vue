@@ -10,7 +10,7 @@
       <template slot="typ" slot-scope="data">
         <span v-if="data.tbl.value === 'Order'" class="text-primary">
           {{ data.tbl.value }}
-          <b-button size="sm" @click="info(data.tbl.item)" class="mr-1">
+          <b-button size="sm" @click="info(data.tbl.item)" class="mr-1 order-info-btn">
           Info
         </b-button>
         </span>
@@ -151,6 +151,7 @@ export default {
         buttonSize: 'sm',
         centered: true,
         size: 'sm',
+        id: 'order-info',
       });
     },
   },

@@ -3,7 +3,7 @@
   <div>
     <Headline name="Fonds"/>
 
-    <b-nav tabs class="profile-tabs" v-show="!hasFond && isLoggedIn">
+    <b-nav tabs class="fonds-tabs" v-if="!hasFond && isLoggedIn">
       <b-nav-item :active="fondsTab()" :disabled="fondsTab()" v-on:click="tabClick">
         Fonds
       </b-nav-item>
@@ -163,9 +163,7 @@ export default {
         name: this.form.name,
       };
 
-      this.$http.post(Api.fonds(0, 0, null), data).then((r) => {
-        console.log(r);
-
+      this.$http.post(Api.fonds(0, 0, null), data).then(() => {
         // Reset the fond data in vuex to be undefined so fondData fetches the data again
         // from the backend
         this.$store.commit('setFond', undefined);

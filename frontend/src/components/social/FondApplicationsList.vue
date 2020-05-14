@@ -18,7 +18,8 @@
 
           <b-card-text>{{app.text}}</b-card-text>
           <b-button
-            href="#" variant="success"
+            href="#"
+            variant="success"
             v-on:click="buttonClick($event, app.id, true, app.user)"
           >
             Accept
@@ -96,6 +97,7 @@ export default {
           autoHideDelay: 5000,
           appendToast: false,
           variant,
+          id: 'appl-notification',
         });
 
         this.applications = this.applications.filter((app) => app.id !== id);

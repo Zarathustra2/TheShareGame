@@ -99,16 +99,12 @@ export default {
   },
   data() {
     return {
-
       form: {
         subject: '',
-
         tags: [],
         receivers: [],
-
         text: '',
       },
-
       formFeedback: {
         subjectValid: true,
         subjectErrMsg: '',
@@ -119,7 +115,6 @@ export default {
         isValid: true,
         errMessage: '',
       },
-
       datalist: {
         users: [],
       },

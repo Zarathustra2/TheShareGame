@@ -1,10 +1,8 @@
 import { createLocalVue, mount } from '@vue/test-utils';
 import VueRouter from 'vue-router';
 import BuyerSeller from '@/views/company/BuyerSeller.vue';
-import { Table } from '@/service/utils';
+import { Number } from '@/service/utils';
 import mockRouter from '../../mockRouter';
-import getTableDataMock from '../../utilsMock';
-
 
 const localVue = createLocalVue();
 const router = mockRouter.mock();
@@ -59,15 +57,14 @@ const mockItems = [
 
 const mocks = {
   $http: {
-    get() {
-      return Promise.resolve({ data: { name: 'Company Name' } });
+    get(url) {
+      if (!url.includes('buyer')) {
+        return Promise.resolve({ data: { name: 'Company Name' } });
+      }
+      return Promise.resolve({ data: { results: mockItems } });
     },
   },
 };
-
-
-jest.spyOn(Table, 'getTableData').mockImplementation(getTableDataMock(mockItems));
-jest.spyOn(Table, 'getTableNameAndCompanyName').mockImplementation(jest.fn(() => {}));
 
 describe('BuyerSeller', () => {
   let wrapper;
@@ -98,5 +95,12 @@ describe('BuyerSeller', () => {
     });
 
     expect(wrapper.vm.name).toEqual('Bar');
+  });
+
+  it('renders data', () => {
+    for (let i = 0; i < mockItems.length; i++) {
+      const item = mockItems[i];
+      expect(wrapper.html()).toContain(Number.formatNumber(item.amount));
+    }
   });
 });

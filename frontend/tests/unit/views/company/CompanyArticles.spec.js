@@ -58,4 +58,29 @@ describe('CompanyArticles', () => {
   it('renders articles', () => {
     expect(wrapper.html()).not.toContain('No Articles have been written yet!');
   });
+
+  it('does not get company name if present in props', () => {
+    wrapper = mount(CompanyArticles, {
+      stubs: ['router-link'],
+      localVue,
+      propsData: {
+        companyName: 'some-name',
+      },
+      mocks: {
+        $http: {
+          get(url) {
+            if (url === companyUrl) {
+              // eslint-disable-next-line
+              fail('Company url should not have been called!');
+            }
+            return Promise.resolve({ data: mockedData });
+          },
+        },
+        $route: {
+          params: { isin: 'NI000001' },
+        },
+      },
+    });
+    expect(wrapper.vm.name).toEqual('some-name');
+  });
 });

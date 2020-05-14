@@ -3,7 +3,7 @@
 
     <Headline name="Newspaper"/>
 
-    <b-nav tabs class="profile-tabs" v-show="loggedIn">
+    <b-nav tabs class="newspaper-tabs" v-show="loggedIn">
       <b-nav-item :active="!isEdit()" :disabled="!isEdit()" v-on:click="tabClick">
         Articles
       </b-nav-item>

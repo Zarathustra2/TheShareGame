@@ -17,7 +17,7 @@
           {{ formFeedback.textErrMsg }}
         </b-form-invalid-feedback>
       </b-form-group>
-      <b-button type="submit" variant="success">Submit</b-button>
+      <b-button class="submit-btn" type="submit" variant="success">Submit</b-button>
 
       <AlertDangerForm :isValid="formFeedback.isValid" :errMessage="formFeedback.errMessage">
       </AlertDangerForm>
@@ -50,13 +50,10 @@ export default {
   },
   data() {
     return {
-
-      countryCode: 'US',
       form: {
         text: '',
 
       },
-
       formFeedback: {
         textValid: true,
         textErrMsg: '',

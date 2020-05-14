@@ -30,7 +30,7 @@
           </b-form-invalid-feedback>
         </b-form-group>
 
-        <b-button type="submit" variant="success" id="submitArticleButton">Submit</b-button>
+        <b-button type="submit" variant="success" class="submit-btn">Submit</b-button>
 
         <AlertDangerForm :isValid="formFeedback.isValid" :errMessage="formFeedback.errMessage">
         </AlertDangerForm>
@@ -78,7 +78,7 @@ export default {
         text: this.form.text,
 
         // eslint-disable-next-line
-          fond_id: this.fond.id
+        fond_id: this.fond.id
       };
 
       resetFormErrors(this);
@@ -89,6 +89,7 @@ export default {
           autoHideDelay: 5000,
           appendToast: false,
           variant: 'success',
+          id: 'application-notfication',
         });
       }).catch((err) => {
         parseErrorsForm(this, err.response.data);

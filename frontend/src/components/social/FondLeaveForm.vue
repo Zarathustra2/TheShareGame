@@ -5,7 +5,7 @@
       This will result in loosing access to the fond forum and so on.
     </p>
 
-    <b-button variant="danger" v-on:click="onClick">
+    <b-button variant="danger" v-on:click="onClick" class="leave-btn">
       Leave
     </b-button>
 

@@ -58,10 +58,10 @@ import Headline from '@/components/Headline.vue';
 import { BCol } from 'bootstrap-vue';
 
 /**
-   * Displays all messages of the user. Users can create new messages with multiple
-   * other users.
-   *
-   */
+ * Displays all messages of the user. Users can create new messages with multiple
+ * other users.
+ *
+ */
 export default {
   name: 'MessagesList',
   components: {

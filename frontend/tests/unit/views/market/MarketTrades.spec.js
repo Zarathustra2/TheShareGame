@@ -1,11 +1,8 @@
-
 import { createLocalVue, mount } from '@vue/test-utils';
 import VueRouter from 'vue-router';
 import MarketTrades from '@/views/market/MarketTrades.vue';
-import { Table } from '@/service/utils';
+import { Number } from '@/service/utils';
 import mockRouter from '../../mockRouter';
-import getTableDataMock from '../../utilsMock';
-
 
 const localVue = createLocalVue();
 const router = mockRouter.mock();
@@ -58,17 +55,28 @@ const mockItems = [
   },
 ];
 
-jest.spyOn(Table, 'getTableData').mockImplementation(getTableDataMock(mockItems));
-jest.spyOn(Table, 'getTableNameAndCompanyName').mockImplementation(jest.fn(() => {}));
-
 describe('MarketTrades', () => {
   let wrapper;
   beforeEach(() => {
-    wrapper = mount(MarketTrades, { localVue, router });
+    wrapper = mount(MarketTrades, {
+      localVue,
+      router,
+      mocks: {
+        $http: {
+          get: () => Promise.resolve({ data: { results: mockItems } }),
+        },
+      },
+    });
   });
 
-  it('renders', () => {
-    // TODO Test something. What should be tested?
+  it('renders the data', async () => {
     expect(wrapper.exists()).toBe(true);
+
+    await wrapper.vm.$nextTick();
+    await wrapper.vm.$nextTick();
+    for (let i = 0; i < mockItems.length; i++) {
+      const item = mockItems[i];
+      expect(wrapper.html()).toContain(Number.formatNumber(item.amount));
+    }
   });
 });

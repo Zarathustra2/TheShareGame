@@ -62,7 +62,7 @@
       </b-form-group>
 
       <AlertDangerForm :isValid="formFeedback.isValid" :errMessage="formFeedback.errMessage"/>
-      <b-button type="submit" variant="primary">Submit</b-button>
+      <b-button type="submit" variant="primary" class="submit-btn">Submit</b-button>
 
     </b-form>
   </div>
@@ -125,7 +125,6 @@ export default {
 
       if (this.form.logo !== null) {
         const formData = new FormData();
-
         formData.append('open_for_application', payload.open_for_application);
         formData.append('description', payload.description);
         formData.append('logo', this.form.logo);

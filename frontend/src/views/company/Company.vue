@@ -155,6 +155,7 @@ export default {
     isin() {
       return this.$route.params.isin;
     },
+    /* istanbul ignore next */
     logo() {
       if (this.company === null) {
         return null;
