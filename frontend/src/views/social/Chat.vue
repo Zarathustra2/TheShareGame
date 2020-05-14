@@ -2,7 +2,6 @@
   <div>
     <Headline name="Chat!"></Headline>
     <ChatBox amount=100></ChatBox>
-
   </div>
 
 </template>

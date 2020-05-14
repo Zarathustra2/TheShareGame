@@ -1,16 +1,8 @@
 import { createLocalVue, mount } from '@vue/test-utils';
-import VueRouter from 'vue-router';
-
 import Messages from '@/views/social/Messages.vue';
-
-import { Table } from '@/service/utils';
 import { NavbarPlugin } from 'bootstrap-vue';
-import getTableDataMock from '../../utilsMock';
-
 
 const localVue = createLocalVue();
-const router = new VueRouter();
-localVue.use(VueRouter);
 localVue.use(NavbarPlugin);
 
 const mockItems = [
@@ -29,19 +21,34 @@ const mockItems = [
   },
 ];
 
-jest.spyOn(Table, 'getTableData').mockImplementation(getTableDataMock(mockItems));
+const mocks = {
+  $http: {
+    get: () => Promise.resolve({ data: { results: mockItems } }),
+  },
+};
+
 
 describe('Messages', () => {
   let wrapper;
+
+  const switchToForm = (wrap, tab) => {
+    const elemes = wrap.find('.msg-tabs').findAll('a');
+    expect(elemes.length).toBe(2);
+
+    const elem = elemes.at(tab);
+
+    elem.trigger('click');
+  };
+
   beforeEach(() => {
-    wrapper = mount(Messages, { localVue, router, stubs: ['router-link'] });
+    wrapper = mount(Messages, {
+      localVue,
+      mocks,
+      stubs: { 'router-link': true, MessageForm: true },
+    });
   });
 
-  it('renders data', async () => {
-    expect(Table.getTableData).toBeCalled();
-
-    await wrapper.vm.$nextTick();
-
+  it('renders data', () => {
     expect(wrapper.findAll('tbody > tr').length).toBe(2);
 
     const $trs = wrapper.findAll('tbody > tr').wrappers;
@@ -57,5 +64,19 @@ describe('Messages', () => {
 
       expect(tr.find('#read').html()).toMatch(readSpan);
     }
+  });
+
+  it('switches tab to new message form and back', async () => {
+    expect(wrapper.html()).not.toContain('messageform-stub');
+    switchToForm(wrapper, 1);
+
+    await wrapper.vm.$nextTick();
+    expect(wrapper.html()).toContain('messageform-stub');
+
+    switchToForm(wrapper, 0);
+
+    await wrapper.vm.$nextTick();
+
+    expect(wrapper.html()).not.toContain('messageform-stub');
   });
 });
