@@ -24,7 +24,7 @@ django-countries==6.0
 django-model-utils==4.0.0
 django-rest-auth==0.9.5
 django-rest-framework==0.1.0
-djangorestframework==3.11.0
+djangorestframework==3.11.2
 docutils==0.16
 freezegun==0.3.15
 graphviz==0.13.2
