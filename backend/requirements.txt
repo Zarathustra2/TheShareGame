@@ -47,7 +47,7 @@ pluggy==0.13.1
 port-for==0.3.1
 psycopg2-binary==2.8.4
 py==1.8.1
-Pygments==2.6.1
+Pygments==2.7.4
 pyparsing==2.4.6
 pytest==5.3.5
 pytest-cov==2.8.1
